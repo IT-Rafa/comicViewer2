@@ -24,22 +24,27 @@ namespace ComicViewer2
         private readonly List<double> vertical = new();
         private int imageIndex = 0;
 
+        public List<string> FilePaths => filePaths;
+        public List<double> Vertical => vertical;
+
         public MainWindow()
         {
             InitializeComponent();
-            UpdateInit();
+            Init.Start();
 
         }
-        /// <summary>
-        /// Interaction logic for MainWindow.xaml
-        /// </summary>
-        private void UpdateInit()
+
+
+
+        private void ShowImage(string imagePath)
         {
-            // Comprobar archivos
-            //      - xml con datos de acceso
-            //      - archivo temporal - vaciar
-            //string curFile = "\test.txt";
-            //Console.WriteLine(File.Exists(curFile) ? "File exists." : "File does not exist.");
+
+            BitmapImage image = new();
+            image.BeginInit();
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.UriSource = new Uri("imagen1.jpg");
+            image.EndInit();
+            imagePicture.Source = image;
         }
     }
 }

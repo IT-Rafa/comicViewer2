@@ -8,15 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="default.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Resources\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="default.jpg" />
+    <Resource Include="Resources\default.jpg" />
   </ItemGroup>
 
 </Project>
