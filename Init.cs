@@ -17,15 +17,50 @@ using File = System.IO.File;
 
 namespace ComicViewer2
 {
+
     internal class Init
     {
+        private static string initFile = Environment.CurrentDirectory + "\\comicViewer.ini";
+
         public static void Start()
         {
             ReadInit();
+            CheckFile();
         }
+
+        private static void CheckFile()
+        {
+            try
+            {
+                using (StreamReader sr? = File.OpenText(initFile))
+                {
+                    string s = "";
+                    while ((s = sr.ReadLine()) != null)
+                    {
+                        Console.WriteLine(s);
+                    }
+                }
+            }
+
+            catch (OutOfMemoryException e)
+            {
+                MessageBox.Show("fallo" + e.ToString());
+
+            }
+            catch (IOException e)
+            {
+                MessageBox.Show("fallo" + e.ToString());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("fallo" + e.ToString());
+
+            }
+
+        }
+
         public static void ReadInit()
         {
-            string initFile = Environment.CurrentDirectory + "\\comicViewer.ini";
             // string initFile = ".\\Resources\\default.jpg";
             if (!File.Exists(initFile))
             {
