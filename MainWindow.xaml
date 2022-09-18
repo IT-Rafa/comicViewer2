@@ -24,7 +24,7 @@
         </Grid>
 
         <ScrollViewer x:Name="imageContainer"  VerticalScrollBarVisibility="Visible" IsDeferredScrollingEnabled="True" >
-            <Image x:Name="imagePicture" Source="/Resources/default.jpg" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill"   />
+            <Image x:Name="imagePicture" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill"   />
 
 
         </ScrollViewer>

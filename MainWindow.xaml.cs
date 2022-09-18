@@ -20,6 +20,11 @@ namespace ComicViewer2
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string lastFolder = "";
+        private string lastComic = "";
+        private string lastImage = "";
+        private string lastFormat = "";
+
         private readonly List<string> filePaths = new();
         private readonly List<double> vertical = new();
         private int imageIndex = 0;
@@ -27,22 +32,30 @@ namespace ComicViewer2
         public List<string> FilePaths => filePaths;
         public List<double> Vertical => vertical;
 
+        public string LastFolder { get => lastFolder; set => lastFolder = value; }
+        public string LastComic { get => lastComic; set => lastComic = value; }
+        public string LastImage { get => lastImage; set => lastImage = value; }
+        public string LastFormat { get => lastFormat; set => lastFormat = value; }
+
         public MainWindow()
         {
             InitializeComponent();
-            Init.Start();
+
+            Init.Start(this);
+            if(LastImage == "Default")
+            {
+
+                ShowImage("./Resources/default.jpg");
+            }
 
         }
 
-
-
         private void ShowImage(string imagePath)
         {
-
             BitmapImage image = new();
             image.BeginInit();
             image.CacheOption = BitmapCacheOption.OnLoad;
-            image.UriSource = new Uri("imagen1.jpg");
+            image.UriSource = new Uri(imagePath, UriKind.RelativeOrAbsolute);
             image.EndInit();
             imagePicture.Source = image;
         }

@@ -20,24 +20,45 @@ namespace ComicViewer2
 
     internal class Init
     {
-        private static string initFile = Environment.CurrentDirectory + "\\comicViewer.ini";
+        private static readonly string initFile = 
+            Environment.CurrentDirectory + "\\comicViewer.ini";
 
-        public static void Start()
+        public static void Start(MainWindow win)
         {
             ReadInit();
-            CheckFile();
+            CheckFile(win);
         }
 
-        private static void CheckFile()
+        private static void CheckFile(MainWindow win)
         {
             try
             {
-                using (StreamReader sr? = File.OpenText(initFile))
+                using StreamReader sr = File.OpenText(initFile);
+                string? s = "";
+                while ((s = sr.ReadLine()) != null)
                 {
-                    string s = "";
-                    while ((s = sr.ReadLine()) != null)
+                    int found;
+                    if (s.StartsWith("LastFolder="))
                     {
-                        Console.WriteLine(s);
+                        found = s.IndexOf("=");
+                        win.LastFolder = s[(found + 1)..];
+                    }
+                    else if (s.StartsWith("LastComic="))
+                    {
+                        found = s.IndexOf("=");
+                        win.LastComic = s[(found + 1)..];
+                    }
+                    else if (s.StartsWith("LastImage="))
+                    {
+                        found = s.IndexOf("=");
+                        win.LastImage = s[(found + 1)..];
+
+                    }
+                    else if (s.StartsWith("LastFormat="))
+                    {
+                        found = s.IndexOf("=");
+                        win.LastFormat = s[(found + 1)..];
+
                     }
                 }
             }
@@ -69,9 +90,12 @@ namespace ComicViewer2
                 sw.WriteLine("; last modified from program " + DateTime.Now.ToString() + "\n");
                 sw.WriteLine("### COMICVIEWER ###" + "\n");
                 sw.WriteLine("[LastAccess]" + "\n");
-                sw.WriteLine("LastAccessFolder=" + Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\n");
-                sw.WriteLine("LastAccessFile=Default\n");
-                sw.WriteLine("LastFormatInFile=" + "[\n\t0\n]\n");
+                sw.WriteLine("LastFolder=" +
+                    Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\n");
+                sw.WriteLine("LastComic=\n");
+                sw.WriteLine("LastFormatInComic=");
+                sw.WriteLine("LastImage=Default\n");
+                sw.WriteLine("LastFormatInImage=" + "[\n\t0\n]\n");
             }
 
         }
