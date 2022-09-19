@@ -12,7 +12,7 @@
         <Grid x:Name="menuGrid" DockPanel.Dock="Top">
             <Menu DockPanel.Dock="Top" >
                 <MenuItem  Header="File" >
-                    <MenuItem Header="Add image" Name="addImage" />
+                    <MenuItem Header="Add image" Name="addImage" Click="AddImage_Click" />
                     <MenuItem Header="Add comic file" Name="addComicFile" />
 
                 </MenuItem>
@@ -24,7 +24,7 @@
         </Grid>
 
         <ScrollViewer x:Name="imageContainer"  VerticalScrollBarVisibility="Visible" IsDeferredScrollingEnabled="True" >
-            <Image x:Name="imagePicture" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill"   />
+            <Image x:Name="imagePicture" Source ="Resources\default.jpg" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill" MouseLeftButtonDown="ImagePicture_MouseLeftButtonDown"   />
 
 
         </ScrollViewer>

@@ -11,8 +11,11 @@
     <Folder Include="Resources\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Resources\default.jpg" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<None Remove="Resources\default.jpg" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<Resource Include="Resources\default.jpg" />
+	</ItemGroup>
 </Project>
