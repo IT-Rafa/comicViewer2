@@ -43,22 +43,15 @@ namespace ComicViewer2
                         found = s.IndexOf("=");
                         win.LastFolder = s[(found + 1)..];
                     }
-                    else if (s.StartsWith("LastComic="))
+                    else if (s.StartsWith("LastFile="))
                     {
                         found = s.IndexOf("=");
-                        win.LastComic = s[(found + 1)..];
-                    }
-                    else if (s.StartsWith("LastImage="))
-                    {
-                        found = s.IndexOf("=");
-                        win.LastImage = s[(found + 1)..];
-
+                        win.LastFile = s[(found + 1)..];
                     }
                     else if (s.StartsWith("LastFormat="))
                     {
                         found = s.IndexOf("=");
                         win.LastFormat = s[(found + 1)..];
-
                     }
                 }
             }

@@ -25,8 +25,7 @@ namespace ComicViewer2
     public partial class MainWindow : Window
     {
         private string lastFolder = "";
-        private string lastComic = "";
-        private string lastImage = "";
+        private string lastFile = "";
         private string lastFormat = "";
 
         private readonly List<string> filePaths = new();
@@ -37,8 +36,7 @@ namespace ComicViewer2
         public List<double> Vertical => vertical;
 
         public string LastFolder { get => lastFolder; set => lastFolder = value; }
-        public string LastComic { get => lastComic; set => lastComic = value; }
-        public string LastImage { get => lastImage; set => lastImage = value; }
+        public string LastFile { get => lastFile; set => lastFile = value; }
         public string LastFormat { get => lastFormat; set => lastFormat = value; }
 
         public MainWindow()
@@ -51,6 +49,10 @@ namespace ComicViewer2
 
         private void ShowImage(string imagePath)
         {
+            this.Title = "Comic Viewer: Comic [" + Path.GetFileName(lastFile) +
+    "] [" + Path.GetFileName(filePaths[imageIndex]) + "]";
+
+
             BitmapImage image = new();
             image.BeginInit();
             image.CacheOption = BitmapCacheOption.OnLoad;
@@ -86,8 +88,6 @@ namespace ComicViewer2
                 }
 
                 Uri fileUri = new(filePaths[imageIndex]);
-                this.Title = "Comic Viewer: Folder [" + Path.GetDirectoryName(filePaths[imageIndex]) +
-                    "] [" + Path.GetFileName(filePaths[imageIndex]) + "]" + vertical[imageIndex];
                 ShowImage(fileUri.ToString());
             }
 
@@ -95,66 +95,87 @@ namespace ComicViewer2
 
         private void ImagePicture_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-                e.Handled = true;
+            e.Handled = true;
 
-                if (e.ClickCount == 1)
-                {
-                    MoveToNextImage();
-                }
-
-                else if (e.ClickCount > 1)
-                {
-                    MoveToNextComic();
-                }
+            if (e.ClickCount == 1)
+            {
+                MoveToPreviousImage();
             }
 
-        private void MoveToNextImage()
-        {
-            vertical[imageIndex] = imageContainer.VerticalOffset;
-
-            if (imageIndex >= 0 && imageIndex < (filePaths.Count - 1))
+            else if (e.ClickCount > 1)
             {
-                ++imageIndex;
-
-                this.Title = "Comic Viewer: Comic [" + Path.GetFileName(comicActual) +
-                    "] [" + Path.GetFileName(filePaths[imageIndex]) + "]";
-
-                BitmapImage image = new();
-                image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.UriSource = new Uri(filePaths[imageIndex]);
-                image.EndInit();
-                imagePicture.Source = image;
-
-                imageContainer.ScrollToVerticalOffset(vertical[imageIndex]);
-
+                MoveToPreviousComic();
             }
         }
 
+
+
+        private void MoveToPreviousImage()
+        {
+            vertical[imageIndex] = imageContainer.VerticalOffset;
+
+            --imageIndex;
+            if (imageIndex < 0)
+            {
+                ++imageIndex;
+            }
+
+            ShowImage(filePaths[imageIndex]);
+            imageContainer.ScrollToVerticalOffset(vertical[imageIndex]);
+        }
+
+        private void MoveToNextImage()
+        {
+                vertical[imageIndex] = imageContainer.VerticalOffset;
+
+                ++imageIndex;
+                if (imageIndex >= filePaths.Count)
+                {
+                    --imageIndex;
+                }
+
+                ShowImage(filePaths[imageIndex]);
+                imageContainer.ScrollToVerticalOffset(vertical[imageIndex]);
+        }
+        private void MoveToPreviousComic()
+        {
+            imageIndex--;
+            if (imageIndex <= 0)
+            {
+               ++imageIndex;
+            }
+
+            ShowImage(filePaths[imageIndex]);
+            imageContainer.ScrollToVerticalOffset(vertical[imageIndex]);
+
+        }
         private void MoveToNextComic()
         {
             imageIndex++;
-            if (filePaths[imageIndex] == null)
+            if (imageIndex >= filePaths.Count)
             {
-                imageIndex = --imageIndex;
+                --imageIndex;
             }
-            else
+
+            ShowImage(filePaths[imageIndex]);
+            imageContainer.ScrollToVerticalOffset(vertical[imageIndex]);
+        }
+
+        private void ImagePicture_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+
+            if (e.ClickCount == 1)
             {
-                this.Title = "Comic Viewer: Comic [" + Path.GetFileName(comicActual) +
-                        "] [" + Path.GetFileName(filePaths[imageIndex]) + "]";
+                MoveToNextImage();
+            }
 
-                BitmapImage image = new();
-                image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.UriSource = new Uri(filePaths[imageIndex]);
-                image.EndInit();
-                imagePicture.Source = image;
-
-                imageContainer.ScrollToVerticalOffset(vertical[imageIndex]);
-
+            else if (e.ClickCount > 1)
+            {
+                MoveToNextComic();
             }
         }
     }
 
-    
+
 }
