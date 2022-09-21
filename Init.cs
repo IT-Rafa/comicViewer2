@@ -1,18 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Resources;
-using System.Runtime.Intrinsics.X86;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Media.Imaging;
-using System.Xml;
-using static System.Net.WebRequestMethods;
 using File = System.IO.File;
 
 namespace ComicViewer2
@@ -20,16 +9,26 @@ namespace ComicViewer2
 
     internal class Init
     {
+        private static string lastPath = "";
+        private static readonly List<string> images = new();
+        private static int imageIndex = 0;
+
         private static readonly string initFile = 
             Environment.CurrentDirectory + "\\comicViewer.ini";
+
+        public static string LastPath { get => lastPath; set => lastPath = value; }
+
+        public static List<string> Images => images;
+
+        public static int ImageIndex { get => imageIndex; set => imageIndex = value; }
 
         public static void Start(MainWindow win)
         {
             ReadInit();
-            CheckFile(win);
+            CheckFile();
         }
 
-        private static void CheckFile(MainWindow win)
+        private static void CheckFile()
         {
             try
             {
@@ -38,22 +37,23 @@ namespace ComicViewer2
                 while ((s = sr.ReadLine()) != null)
                 {
                     int found;
-                    if (s.StartsWith("LastFolder="))
+                    if (s.StartsWith("lastPath="))
                     {
                         found = s.IndexOf("=");
-                        win.LastFolder = s[(found + 1)..];
+                        LastPath = s[(found + 1)..];
+                    }
+                    else if (s.StartsWith("images="))
+                    {
+                        found = s.IndexOf("=");
+                        Images.Add(s[(found + 1)..]);
                     }
                     else if (s.StartsWith("LastFile="))
                     {
                         found = s.IndexOf("=");
-                        win.LastFile = s[(found + 1)..];
-                    }
-                    else if (s.StartsWith("LastFormat="))
-                    {
-                        found = s.IndexOf("=");
-                        win.LastFormat = s[(found + 1)..];
+                        ImageIndex = int.Parse(s[(found + 1)..]);
                     }
                 }
+
             }
 
             catch (OutOfMemoryException e)
@@ -83,12 +83,11 @@ namespace ComicViewer2
                 sw.WriteLine("; last modified from program " + DateTime.Now.ToString() + "\n");
                 sw.WriteLine("### COMICVIEWER ###" + "\n");
                 sw.WriteLine("[LastAccess]" + "\n");
-                sw.WriteLine("LastFolder=" +
+                sw.WriteLine("lastPath=" +
                     Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\n");
-                sw.WriteLine("LastComic=\n");
-                sw.WriteLine("LastFormatInComic=");
-                sw.WriteLine("LastImage=Default\n");
-                sw.WriteLine("LastFormatInImage=" + "[\n\t0\n]\n");
+                sw.WriteLine("images=\n");
+                sw.WriteLine("imageIndex=");
+
             }
 
         }

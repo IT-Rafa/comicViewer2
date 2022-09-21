@@ -1,21 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Path = System.IO.Path;
 
 namespace ComicViewer2
 {
@@ -24,20 +13,7 @@ namespace ComicViewer2
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string lastFolder = "";
-        private string lastFile = "";
-        private string lastFormat = "";
 
-        private readonly List<string> filePaths = new();
-        private readonly List<double> vertical = new();
-        private int imageIndex = 0;
-
-        public List<string> FilePaths => filePaths;
-        public List<double> Vertical => vertical;
-
-        public string LastFolder { get => lastFolder; set => lastFolder = value; }
-        public string LastFile { get => lastFile; set => lastFile = value; }
-        public string LastFormat { get => lastFormat; set => lastFormat = value; }
 
         public MainWindow()
         {
@@ -47,11 +23,9 @@ namespace ComicViewer2
 
         }
 
-        private void ShowImage(string imagePath)
+        private void ShowImage(string imagePath, string source, string fileName)
         {
-            this.Title = "Comic Viewer: Comic [" + Path.GetFileName(lastFile) +
-    "] [" + Path.GetFileName(filePaths[imageIndex]) + "]";
-
+            this.Title = "Comic Viewer: Comic [" + source + "] [" + fileName + "]";
 
             BitmapImage image = new();
             image.BeginInit();
@@ -67,32 +41,31 @@ namespace ComicViewer2
             {
                 Multiselect = true,
                 Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp",
-                InitialDirectory = lastFolder,
+                InitialDirectory = Init.LastPath,
                 Title = "Please select an image file."
             };
 
             if (dialog.ShowDialog() == true)
             {
-                imageIndex = 0;
+                OpenFile.DelExtractPath(this, dialog);
 
-                filePaths.Clear();
-                vertical.Clear();
-
-                filePaths.AddRange(dialog.FileNames);
-
-                lastFolder = dialog.FileNames[0];
-
-                for (int x = 0; x < filePaths.Count; x++)
-                {
-                    vertical.Add(0);
-                }
-
-                Uri fileUri = new(filePaths[imageIndex]);
-                ShowImage(fileUri.ToString());
             }
 
         }
+        private void AddComicFile_Click(object sender, RoutedEventArgs e)
+        {
+            string extractPath = System.IO.Path.GetTempPath() + "comicViewerExtract";
+            Directory.CreateDirectory(extractPath);
 
+            OpenFileDialog dialog = new()
+            {
+                Filter = "Comic Files(*.cbr; *.cbz;)|*.cbr; *.cbz",
+                InitialDirectory = Init.LastPath,
+                Title = "Please select an comic file."
+            };
+
+            OpenFile.DelExtractPath(this, dialog);
+        }
         private void ImagePicture_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
@@ -112,53 +85,50 @@ namespace ComicViewer2
 
         private void MoveToPreviousImage()
         {
-            vertical[imageIndex] = imageContainer.VerticalOffset;
 
-            --imageIndex;
-            if (imageIndex < 0)
+            --Init.ImageIndex;
+            if (Init.ImageIndex < 0)
             {
-                ++imageIndex;
+                ++Init.ImageIndex;
             }
 
-            ShowImage(filePaths[imageIndex]);
-            imageContainer.ScrollToVerticalOffset(vertical[imageIndex]);
+            ShowImage(Init.Images[Init.ImageIndex],"","");
+            //imageContainer.ScrollToVerticalOffset(Init.Vertical[Init.ImageIndex]);
         }
 
         private void MoveToNextImage()
         {
-                vertical[imageIndex] = imageContainer.VerticalOffset;
+            ++Init.ImageIndex;
+            if (Init.ImageIndex >= Init.Images.Count)
+            {
+                --Init.ImageIndex;
+            }
 
-                ++imageIndex;
-                if (imageIndex >= filePaths.Count)
-                {
-                    --imageIndex;
-                }
-
-                ShowImage(filePaths[imageIndex]);
-                imageContainer.ScrollToVerticalOffset(vertical[imageIndex]);
+            ShowImage(Init.Images[Init.ImageIndex], "", "");
+            // imageContainer.ScrollToVerticalOffset(Init.Vertical[Init.ImageIndex]);
         }
         private void MoveToPreviousComic()
         {
-            imageIndex--;
-            if (imageIndex <= 0)
+            Init.ImageIndex--;
+            if (Init.ImageIndex <= 0)
             {
-               ++imageIndex;
+                ++Init.ImageIndex;
             }
 
-            ShowImage(filePaths[imageIndex]);
-            imageContainer.ScrollToVerticalOffset(vertical[imageIndex]);
+            ShowImage(Init.Images[Init.ImageIndex], "", "");
+            //imageContainer.ScrollToVerticalOffset(Init.Vertical[Init.ImageIndex]);
 
         }
         private void MoveToNextComic()
         {
-            imageIndex++;
-            if (imageIndex >= filePaths.Count)
+            Init.ImageIndex++;
+            if (Init.ImageIndex >= Init.Images.Count)
             {
-                --imageIndex;
+                --Init.ImageIndex;
             }
 
-            ShowImage(filePaths[imageIndex]);
-            imageContainer.ScrollToVerticalOffset(vertical[imageIndex]);
+            ShowImage(Init.Images[Init.ImageIndex],"","");
+           // imageContainer.ScrollToVerticalOffset(Init.Vertical[Init.ImageIndex]);
         }
 
         private void ImagePicture_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -175,6 +145,8 @@ namespace ComicViewer2
                 MoveToNextComic();
             }
         }
+
+
     }
 
 
