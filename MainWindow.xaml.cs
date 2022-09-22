@@ -81,56 +81,6 @@ namespace ComicViewer2
             }
         }
 
-
-
-        private void MoveToPreviousImage()
-        {
-
-            --Init.ImageIndex;
-            if (Init.ImageIndex < 0)
-            {
-                ++Init.ImageIndex;
-            }
-
-            ShowImage(Init.Images[Init.ImageIndex],"","");
-            //imageContainer.ScrollToVerticalOffset(Init.Vertical[Init.ImageIndex]);
-        }
-
-        private void MoveToNextImage()
-        {
-            ++Init.ImageIndex;
-            if (Init.ImageIndex >= Init.Images.Count)
-            {
-                --Init.ImageIndex;
-            }
-
-            ShowImage(Init.Images[Init.ImageIndex], "", "");
-            // imageContainer.ScrollToVerticalOffset(Init.Vertical[Init.ImageIndex]);
-        }
-        private void MoveToPreviousComic()
-        {
-            Init.ImageIndex--;
-            if (Init.ImageIndex <= 0)
-            {
-                ++Init.ImageIndex;
-            }
-
-            ShowImage(Init.Images[Init.ImageIndex], "", "");
-            //imageContainer.ScrollToVerticalOffset(Init.Vertical[Init.ImageIndex]);
-
-        }
-        private void MoveToNextComic()
-        {
-            Init.ImageIndex++;
-            if (Init.ImageIndex >= Init.Images.Count)
-            {
-                --Init.ImageIndex;
-            }
-
-            ShowImage(Init.Images[Init.ImageIndex],"","");
-           // imageContainer.ScrollToVerticalOffset(Init.Vertical[Init.ImageIndex]);
-        }
-
         private void ImagePicture_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
@@ -145,6 +95,51 @@ namespace ComicViewer2
                 MoveToNextComic();
             }
         }
+
+        private void MoveToPreviousImage()
+        {
+            if(Init.ImageIndex != 0)
+            {
+                Init.ImageIndex--;
+                ShowImage(Init.Images[Init.ImageIndex], "", "");
+                //imageContainer.ScrollToVerticalOffset(Init.Vertical[Init.ImageIndex]);
+            }
+        }
+        private void MoveToPreviousComic()
+        {
+            if (Init.ImageIndex != 0)
+            {
+                Init.ImageIndex--;
+                ShowImage(Init.Images[Init.ImageIndex], "", "");
+                //imageContainer.ScrollToVerticalOffset(Init.Vertical[Init.ImageIndex]);
+            }
+
+        }
+        private void MoveToNextImage()
+        {
+            ++Init.ImageIndex;
+            if (Init.ImageIndex >= Init.Images.Count)
+            {
+                --Init.ImageIndex;
+            }
+
+            ShowImage(Init.Images[Init.ImageIndex], "", "");
+            // imageContainer.ScrollToVerticalOffset(Init.Vertical[Init.ImageIndex]);
+        }
+
+        private void MoveToNextComic()
+        {
+            Init.ImageIndex++;
+            if (Init.ImageIndex >= Init.Images.Count)
+            {
+                --Init.ImageIndex;
+            }
+
+            ShowImage(Init.Images[Init.ImageIndex],"","");
+           // imageContainer.ScrollToVerticalOffset(Init.Vertical[Init.ImageIndex]);
+        }
+
+
 
 
     }

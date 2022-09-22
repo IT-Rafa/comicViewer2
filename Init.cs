@@ -11,6 +11,8 @@ namespace ComicViewer2
     {
         private static string lastPath = "";
         private static readonly List<string> images = new();
+        private static readonly List<string> comics = new();
+
         private static int imageIndex = 0;
 
         private static readonly string initFile = 
@@ -21,6 +23,8 @@ namespace ComicViewer2
         public static List<string> Images => images;
 
         public static int ImageIndex { get => imageIndex; set => imageIndex = value; }
+
+        public static List<string> Comics => comics;
 
         public static void Start(MainWindow win)
         {
@@ -46,6 +50,11 @@ namespace ComicViewer2
                     {
                         found = s.IndexOf("=");
                         Images.Add(s[(found + 1)..]);
+                    }
+                    else if (s.StartsWith("comics="))
+                    {
+                        found = s.IndexOf("=");
+                        Comics.Add(s[(found + 1)..]);
                     }
                     else if (s.StartsWith("LastFile="))
                     {
@@ -86,6 +95,8 @@ namespace ComicViewer2
                 sw.WriteLine("lastPath=" +
                     Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\n");
                 sw.WriteLine("images=\n");
+                sw.WriteLine("comics=folder\n");
+
                 sw.WriteLine("imageIndex=");
 
             }

@@ -12,7 +12,12 @@ namespace ComicViewer2
     {
         public static void  DelExtractPath(MainWindow win, OpenFileDialog dialog)
         {
-            
+            Init.Images.Clear();
+            foreach (string s in dialog.FileNames)
+            {
+                Init.Images.Add(s);
+            }
+           
         }
 
 
