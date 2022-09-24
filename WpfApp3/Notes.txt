@@ -1,0 +1,71 @@
+
+
+ComicViewer
+Inicio
+
+lastComics={
+	default
+]
+
+lastImage=default
+
+comicIndex=[
+	0
+]
+
+Abrir comic o imagen
+
+- Abrir imagen defecto
+comic = default
+	lastFolderComic=default
+	lastComic = 0
+	lastImagen = 0
+	
+	comics = [ 
+		default
+	]
+	
+	images = [
+		default
+	]
+
+- Abrir otro comic
+comic= c:/x.cbr
+
+	lastFolderComic= c:/
+	lastComic = 0
+	lastImagen = 2
+	
+	comics = [ // comics en c:/
+		x.cbr
+		z.cbr
+	]
+	
+	images = [
+		[desc/x]/1.jpg
+		[desc/x]/2.jpg
+		[desc/x]/3.jpg
+	]
+
+
+	allComics = [ // todos comics registrados
+		[x.cbr [
+			[desc/x]/1.jpg,
+			[desc/x]/2.jpg,
+			[desc/x]/3.jpg
+		], [
+			0,
+			0,
+			0
+		]],
+		[z.cbr, [
+			[desc/z]/1.jpg, 
+			[desc/z]/2.jpg,
+			[desc/z]/3.jpg
+		], [
+			0,
+			0,
+			0
+		]],
+	]
+	
