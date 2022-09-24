@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "4Bf5mpoQPDQkPht/y2aNHwVoMCSDdIOjI9g/uJAPdm/QqJW/EnGavBCJv6hsuSyast01Zcy0F4A/DJrXDo2SmQ==",
+  "dgSpecHash": "XR9AIKJiS243Yh8zr4yankKLcSqWUB+qZ8qiZYdJNBMXUVdvXqltOA6D30Pa27KQtFzPK9JRokzRB6Ujbyr7zQ==",
   "success": true,
-  "projectFilePath": "D:\\source\\Windows_IDE\\comicViewer2\\WpfApp3\\WpfApp3.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "D:\\source\\Windows_GUI\\comicViewer2\\WpfApp3\\WpfApp3.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\it-ra\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.31\\microsoft.xaml.behaviors.wpf.1.1.31.nupkg.sha512",
+    "C:\\Users\\it-ra\\.nuget\\packages\\prism.core\\8.1.97\\prism.core.8.1.97.nupkg.sha512",
+    "C:\\Users\\it-ra\\.nuget\\packages\\prism.wpf\\8.1.97\\prism.wpf.8.1.97.nupkg.sha512"
+  ],
   "logs": []
 }

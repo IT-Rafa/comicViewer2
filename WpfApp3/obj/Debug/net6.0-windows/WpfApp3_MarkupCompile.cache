@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\source\Windows_IDE\comicViewer2\WpfApp3\obj\Debug\net6.0-windows\
+D:\source\Windows_GUI\comicViewer2\WpfApp3\obj\Debug\net6.0-windows\
 WpfApp3
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-D:\source\Windows_IDE\comicViewer2\WpfApp3\App.xaml
+D:\source\Windows_GUI\comicViewer2\WpfApp3\App.xaml
 11407045341
 
 41587004840
-194-1103864946
+197-1083722398
 MainWindow.xaml;
 
 False

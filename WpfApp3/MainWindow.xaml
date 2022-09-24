@@ -23,9 +23,11 @@
         </Grid>
 
         <ScrollViewer x:Name="imageContainer"  VerticalScrollBarVisibility="Visible" 
-                      IsDeferredScrollingEnabled="True" >
+                      IsDeferredScrollingEnabled="True" MouseDoubleClick="ImageContainer_MouseDoubleClick" MouseUp="ImageContainer_MouseUp"  >
             <Image x:Name="imagePicture" Source ="Resources\default.jpg" 
-                   HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill" />
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill" 
+                   >
+            </Image>
         </ScrollViewer>
 
     </DockPanel>

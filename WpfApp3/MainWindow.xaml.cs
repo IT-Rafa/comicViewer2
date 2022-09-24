@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using WpfApp3.src;
 
 namespace WpfApp3
@@ -26,6 +14,33 @@ namespace WpfApp3
             InitializeComponent();
 
             Data.Start();
+        }
+
+        private void ImageContainer_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                MessageBox.Show("Left DoubleClick");
+            }
+            else if(e.ChangedButton == MouseButton.Right)
+            {
+                MessageBox.Show("Right DoubleClick");
+
+            }
+
+        }
+
+        private void ImageContainer_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                MessageBox.Show("Left Click");
+            }
+            else if (e.ChangedButton == MouseButton.Right)
+            {
+                MessageBox.Show("Right Click");
+
+            }
         }
     }
 }

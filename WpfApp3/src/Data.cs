@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ using System.Windows;
 
 namespace WpfApp3.src
 {
-    internal class Data
+    internal static class Data
     {
         private static string lastPath = "";
 
@@ -70,8 +71,7 @@ namespace WpfApp3.src
                     ;
                     if (s.StartsWith("lastPath="))
                     {
-                        int found = s.IndexOf("=");
-                        LastPath = s[(found + 1)..];
+                        LastPath = s.Substring("lastPath=".Length);
                     }
                     else if (s.StartsWith("images=["))
                     {
@@ -81,13 +81,13 @@ namespace WpfApp3.src
                                 break;
                             else
                             {
-                                Images.Add(s);
+                                Images.Add(s.Substring("\t".Length));
                             }
                         }
                     }
                     else if (s.StartsWith("imageIndex="))
                     {
-
+                        ImageIndex = int.Parse( s.Substring("imageIndex=".Length));
                     }
                     else if (s.StartsWith("comics=["))
                     {
@@ -97,36 +97,18 @@ namespace WpfApp3.src
                                 break;
                             else
                             {
-                                Comics.Add(s);
+                                Comics.Add(s.Substring("\t".Length));
                             }
                         }
                     }
                     else if (s.StartsWith("comicIndex="))
                     {
-                        LastPath = s.Substring(s.IndexOf("=") + 2);
+                        ComicIndex = int.Parse(s.Substring("comicIndex=".Length));
+
                     }
 
                 }
-                string msg = "";
-                msg += "LastPath=" + LastPath + "\n";
 
-                msg += "images=[";
-                foreach (var image in Images)
-                {
-                    msg += image;
-                }
-                msg += "]\n";
-                msg += "imageIndex=" + imageIndex + "\n";
-
-                msg += "comic=[";
-                foreach (var comic in Comics)
-                {
-                    msg += comic;
-                }
-                msg += "]\n";
-                msg += "comicIndex=" + comicIndex + "\n";
-
-                MessageBox.Show(msg);
 
             }
 
