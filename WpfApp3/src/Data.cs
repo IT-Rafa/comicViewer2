@@ -71,7 +71,7 @@ namespace WpfApp3.src
                     ;
                     if (s.StartsWith("lastPath="))
                     {
-                        LastPath = s.Substring("lastPath=".Length);
+                        LastPath = s["lastPath=".Length..];
                     }
                     else if (s.StartsWith("images=["))
                     {
@@ -81,13 +81,13 @@ namespace WpfApp3.src
                                 break;
                             else
                             {
-                                Images.Add(s.Substring("\t".Length));
+                                Images.Add(s["\t".Length..]);
                             }
                         }
                     }
                     else if (s.StartsWith("imageIndex="))
                     {
-                        ImageIndex = int.Parse( s.Substring("imageIndex=".Length));
+                        ImageIndex = int.Parse(s["imageIndex=".Length..]);
                     }
                     else if (s.StartsWith("comics=["))
                     {
@@ -97,38 +97,32 @@ namespace WpfApp3.src
                                 break;
                             else
                             {
-                                Comics.Add(s.Substring("\t".Length));
+                                Comics.Add(s["\t".Length..]);
                             }
                         }
                     }
                     else if (s.StartsWith("comicIndex="))
                     {
-                        ComicIndex = int.Parse(s.Substring("comicIndex=".Length));
-
+                        ComicIndex = int.Parse(s["comicIndex=".Length..]);
                     }
-
                 }
-
-
             }
 
             catch (OutOfMemoryException e)
             {
-                MessageBox.Show("fallo" + e.ToString());
-
+                MessageBox.Show("fallo OutOfMemoryException" + e.ToString());
             }
             catch (IOException e)
             {
-                MessageBox.Show("fallo" + e.ToString());
+                MessageBox.Show("fallo IOException" + e.ToString());
             }
             catch (Exception e)
             {
-                MessageBox.Show("fallo" + e.ToString());
+                MessageBox.Show("fallo Exception" + e.ToString());
 
             }
-
         }
 
-        
+
     }
 }

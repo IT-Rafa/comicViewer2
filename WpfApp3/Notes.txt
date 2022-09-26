@@ -1,4 +1,5 @@
-
+ComicViewer no detecta cambio sesión
+	LastPath usa ruta guardada
 
 ComicViewer
 Inicio

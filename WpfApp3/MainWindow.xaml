@@ -11,8 +11,8 @@
         <Grid x:Name="menuGrid" DockPanel.Dock="Top">
             <Menu DockPanel.Dock="Top" >
                 <MenuItem  Header="File" >
-                    <MenuItem Header="Add image" Name="addImage" />
-                    <MenuItem Header="Add comic file" Name="addComicFile" />
+                    <MenuItem Header="Add image" Name="addImage" Click="AddImage_Click" />
+                    <MenuItem Header="Add comic file" Name="addComicFile" Click="AddComic_Click" />
 
                 </MenuItem>
                 <Separator />
@@ -21,9 +21,9 @@
                 </MenuItem>
             </Menu>
         </Grid>
-
         <ScrollViewer x:Name="imageContainer"  VerticalScrollBarVisibility="Visible" 
-                      IsDeferredScrollingEnabled="True" MouseDoubleClick="ImageContainer_MouseDoubleClick" MouseUp="ImageContainer_MouseUp"  >
+                      IsDeferredScrollingEnabled="True" PreviewMouseLeftButtonDown="ImageContainer_PreviewMouseLeftButtonDown" PreviewMouseRightButtonDown="ImageContainer_PreviewMouseRightButtonDown" ScrollChanged="ImageContainer_ScrollChanged"  >
+
             <Image x:Name="imagePicture" Source ="Resources\default.jpg" 
                    HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill" 
                    >
