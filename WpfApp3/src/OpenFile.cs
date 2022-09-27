@@ -9,8 +9,10 @@ using System.Windows;
 
 namespace WpfApp3.src
 {
+    // Part of class to open files ( images or comics)
     internal static class OpenFile
     {
+     // Open images files
         internal static void Image()
         {
             OpenFileDialog dialog = new()
@@ -20,14 +22,26 @@ namespace WpfApp3.src
                 InitialDirectory = Data.LastPath,
                 Title = "Please select an image file."
             };
-            MessageBox.Show("InitialDirectory" + dialog.InitialDirectory);
 
             if (dialog.ShowDialog() == true)
             {
+                string t = "dialog: \n";
+                foreach (string s in dialog.FileNames)
+                {
+                    t += "  " + s + "\n";
+                }
+                MessageBox.Show(t);
+
+                Data.Images.Clear();
+                Data.Comics.Clear();
+                Data.ImageIndex = 0;
+                Data.ComicIndex = 0;
+
+                Data.Images.AddRange(dialog.FileNames);
                 
             }
         }
-
+        // Open comic files
         internal static void Comic()
         {
             string extractPath = System.IO.Path.GetTempPath() + "comicViewerExtract";

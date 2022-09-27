@@ -22,22 +22,29 @@ namespace WpfApp3.src
         private static readonly string initFile =
             Environment.CurrentDirectory + "\\comicViewer.ini";
 
-        //
+        // path of actual images or comics are
         public static string LastPath { get => lastPath; set => lastPath = value; }
-
+       
+        // List of path of each image
         public static List<string> Images => images;
 
+        // actual image of images
         public static int ImageIndex { get => imageIndex; set => imageIndex = value; }
 
+        // List of path of each comic
         public static List<string> Comics => comics;
 
+        // actual image of comics
         public static int ComicIndex { get => comicIndex; set => comicIndex = value; }
-        //
+        
+        // read or create comicViewer.ini with user data
         public static void Start()
         {
             ReadInit();
             CheckFile();
         }
+
+        // if comicViewer.ini no exist, create
         public static void ReadInit()
         {
             // string initFile = ".\\Resources\\default.jpg";
@@ -60,6 +67,8 @@ namespace WpfApp3.src
             }
 
         }
+
+        // read comicViewer.ini and store in class
         private static void CheckFile()
         {
             try
