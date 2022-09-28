@@ -32,6 +32,8 @@ namespace WpfApp3.src
                 }
                 MessageBox.Show(t);
 
+                DelInfo();
+
                 Data.Images.Clear();
                 Data.Comics.Clear();
                 Data.ImageIndex = 0;
@@ -58,6 +60,19 @@ namespace WpfApp3.src
             {
 
             }
+        }
+
+        /// <summary>Open comic files.</summary>
+        /// <param name="xor">the new x-coordinate.</param>
+        /// <param name="yor">the new y-coordinate.</param>
+        /// <returns>description</returns>
+
+        private static void DelInfo()
+        {
+            Data.Images.Clear();
+            Data.Comics.Clear();
+            Data.ImageIndex = 0;
+            Data.ComicIndex = 0;
         }
     }
 }

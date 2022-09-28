@@ -20,7 +20,7 @@ namespace WpfApp3
         private int button = 0;
 
         /// <summary>
-        /// Prepare board of app and controls of user interactions
+        /// Constructor. Prepare board of app and controls of user interactions
         /// </summary>
         public MainWindow()
         {
@@ -56,9 +56,8 @@ namespace WpfApp3
 
         }
         /// <summary>
-        /// Control click for mouse (if click != 2)
+        /// Method to control click for mouse (if click != 2)
         /// </summary>
-
         private void Timer_Tick(object? sender, EventArgs e)
         {
             _timer.Stop();
@@ -71,8 +70,10 @@ namespace WpfApp3
                 MessageBox.Show("Right Single Click!"); //handle the single click event here...
             }
         }
-        /// Control click for left button in mouse (if click == 2)
 
+        /// <summary>
+        /// Method to control click for left button in mouse (if click == 2)
+        /// <summary>
         private void ImageContainer_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ClickCount == 2)
