@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp3", "WpfApp3\WpfApp3.csproj", "{CFD461BF-FCA3-4E3C-9711-6DC093BDD590}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComicViewer", "WpfApp3\ComicViewer.csproj", "{CFD461BF-FCA3-4E3C-9711-6DC093BDD590}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -72,7 +72,7 @@ namespace WpfApp3
         }
 
         /// <summary>
-        /// Method to control click for left button in mouse (if click == 2)
+        /// Method to control double click for left button in mouse (if click == 2)
         /// <summary>
         private void ImageContainer_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -88,7 +88,9 @@ namespace WpfApp3
                 button = 1;
             }
         }
-        /// Control click for right button in mouse (if click == 2)
+        /// <summary>
+        /// Method to control double click for right button in mouse (if click == 2) <
+        /// <summary>
         private void ImageContainer_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ClickCount == 2)
@@ -103,7 +105,11 @@ namespace WpfApp3
                 button = 2;
             }
         }
+        /// <summary>
         /// Control for image in top or buttom
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ImageContainer_ScrollChanged(object sender, System.Windows.Controls.ScrollChangedEventArgs e)
         {
             // e.VerticalOffset: represents the new updated value of the Vertical offset of the ScrollViewer
@@ -124,7 +130,9 @@ namespace WpfApp3
             }
         }
 
+        /// <summary>
         /// Move to previus Image
+        /// </summary>
         private void MoveToPreviusImage()
         {
             MessageBox.Show("Move to previus Image!");
@@ -134,7 +142,10 @@ namespace WpfApp3
             }
         }
 
-        // Move to next Image
+        /// <summary>
+        /// Move to next Image
+        /// </summary>
+
         private void MoveToNextImage()
         {
             MessageBox.Show("Move to next Image!");
@@ -143,7 +154,9 @@ namespace WpfApp3
                 ShowImage(Data.Images[++Data.ImageIndex]);
             }
         }
+        /// <summary>
         /// Move to previus Comic
+        /// </summary>
         private void MoveToPreviusComic()
         {
             MessageBox.Show("Move to previus Comic!");
@@ -153,7 +166,9 @@ namespace WpfApp3
             }
         }
 
-        // Move to next Comic
+        /// <summary>
+        /// Move to next Comic
+        /// </summary>
         private void MoveToNextComic()
         {
             MessageBox.Show("Move to next Comic!");
@@ -163,7 +178,10 @@ namespace WpfApp3
             }
         }
 
-        // show image in 
+        /// <summary>
+        /// Method to show image in Image "imagePicture"
+        /// </summary>
+        /// <param name="imagePath">String with the route</param>
         internal void ShowImage(string imagePath)
         {
             BitmapImage image = new();
@@ -174,14 +192,22 @@ namespace WpfApp3
             imagePicture.Source = image;
         }
 
-        // click when addImage in menu
+        /// <summary>
+        /// Method to adjunt to click when addImage in menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddImage_Click(object sender, RoutedEventArgs e)
         {
             OpenFile.Image();
             ShowImage(Data.Images[Data.ImageIndex]);
         }
 
-        // click when AddComic in menu
+        /// <summary>
+        /// Method to adjunt to click when AddComic in menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddComic_Click(object sender, RoutedEventArgs e)
         {
             OpenFile.Comic();

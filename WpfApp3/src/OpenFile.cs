@@ -25,7 +25,7 @@ namespace WpfApp3.src
 
             if (dialog.ShowDialog() == true)
             {
-                string t = "dialog: \n";
+                string t = "dialog.FileNames: \n";
                 foreach (string s in dialog.FileNames)
                 {
                     t += "  " + s + "\n";
@@ -58,7 +58,19 @@ namespace WpfApp3.src
 
             if (dialog.ShowDialog() == true)
             {
+                string t = "dialog.filename: " + dialog.FileName + "\n";
+                MessageBox.Show(t);
 
+                DelInfo();
+
+                Data.Images.Clear();
+                Data.Comics.Clear();
+                Data.ImageIndex = 0;
+                Data.ComicIndex = 0;
+
+                UnCompress.Start(dialog);
+
+                Data.Images.AddRange(dialog.FileNames);
             }
         }
 
