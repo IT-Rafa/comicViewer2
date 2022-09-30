@@ -1,4 +1,6 @@
-﻿using System;
+﻿using log4net;
+using System;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -11,6 +13,7 @@ namespace WpfApp3
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static readonly ILog log = LogManager.GetLogger(type: MethodBase.GetCurrentMethod()?.DeclaringType);
         /** temp for prepare click or double click in mouse button
          */
         private readonly System.Windows.Threading.DispatcherTimer _timer = new();
@@ -24,8 +27,11 @@ namespace WpfApp3
         /// </summary>
         public MainWindow()
         {
+            log4net.Config.XmlConfigurator.Configure();
+
             // prepare page in xaml
             InitializeComponent();
+            log.Info("hola");
 
             // get user data and prepare the image control
             Data.Start();
@@ -160,7 +166,7 @@ namespace WpfApp3
         private void MoveToPreviusComic()
         {
             MessageBox.Show("Move to previus Comic!");
-            if (Data.ComicIndex != 0)
+            if (Data.ComicIndex > 0)
             {
                 ShowImage(Data.Comics[--Data.ComicIndex]);
             }
@@ -190,6 +196,7 @@ namespace WpfApp3
             image.UriSource = new Uri(imagePath);
             image.EndInit();
             imagePicture.Source = image;
+            imageContainer.ScrollToVerticalOffset(0);
         }
 
         /// <summary>
@@ -211,6 +218,7 @@ namespace WpfApp3
         private void AddComic_Click(object sender, RoutedEventArgs e)
         {
             OpenFile.Comic();
+            ShowImage(Data.Images[Data.ImageIndex]);
         }
     }
 }

@@ -8,7 +8,18 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
+		<None Remove="log.config" />
 		<None Remove="Resources\default.jpg" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Content Include="log.config">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <PackageReference Include="log4net" Version="2.0.15" />
 	</ItemGroup>
 
 	<ItemGroup>

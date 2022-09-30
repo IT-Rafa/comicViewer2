@@ -13,6 +13,8 @@ namespace WpfApp3.src
         {
             DelExtractFiles();
             SelectZipOrRar(dialog);
+            Data.Images.AddRange(Directory.GetFiles(extractPath));
+
         }
 
         internal static void DelExtractFiles()
@@ -40,7 +42,7 @@ namespace WpfApp3.src
             else if (dialog.FileName.EndsWith(".cbz"))
             {
                 MessageBox.Show("Open " + dialog.FileName);
-                extractPath += System.IO.Path.GetFileNameWithoutExtension(dialog.FileName);
+                extractPath += "/" + System.IO.Path.GetFileNameWithoutExtension(dialog.FileName);
                 ExtractZip(dialog.FileName, extractPath);
 
             }
@@ -49,12 +51,14 @@ namespace WpfApp3.src
         private static void ExtractRar(string path, string extractPath)
         {
             MessageBox.Show("Extract in " + extractPath);
-            ZipFile.ExtractToDirectory(path, extractPath, true);
         }
 
         private static void ExtractZip(string path, string extractPath)
         {
             MessageBox.Show("Extract in " + extractPath);
+            Directory.CreateDirectory(extractPath);
+            ZipFile.ExtractToDirectory(path, extractPath, true);
+
         }
     }
 }

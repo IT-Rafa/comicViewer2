@@ -63,22 +63,13 @@ namespace WpfApp3.src
 
                 DelInfo();
 
-                Data.Images.Clear();
-                Data.Comics.Clear();
-                Data.ImageIndex = 0;
-                Data.ComicIndex = 0;
-
                 UnCompress.Start(dialog);
 
                 Data.Images.AddRange(dialog.FileNames);
             }
         }
 
-        /// <summary>Open comic files.</summary>
-        /// <param name="xor">the new x-coordinate.</param>
-        /// <param name="yor">the new y-coordinate.</param>
-        /// <returns>description</returns>
-
+        /// <summary>Del data.</summary>
         private static void DelInfo()
         {
             Data.Images.Clear();
