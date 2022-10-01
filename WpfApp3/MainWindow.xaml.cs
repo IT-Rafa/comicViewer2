@@ -4,7 +4,9 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using WpfApp3.src;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WpfApp3
 {
@@ -13,13 +15,13 @@ namespace WpfApp3
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static readonly ILog log = LogManager.GetLogger(type: MethodBase.GetCurrentMethod()?.DeclaringType);
-        /** temp for prepare click or double click in mouse button
-         */
+        private static readonly ILog log = 
+            LogManager.GetLogger(type: MethodBase.GetCurrentMethod()?.DeclaringType);
+
+        /// temp for prepare click or double click in mouse button
         private readonly System.Windows.Threading.DispatcherTimer _timer = new();
         
-        /** button pressed in mouse
-         */
+        /// button pressed in mouse
         private int button = 0;
 
         /// <summary>
@@ -31,12 +33,13 @@ namespace WpfApp3
 
             // prepare page in xaml
             InitializeComponent();
-            log.Info("hola");
+            log.Info("Init Window");
 
             // get user data and prepare the image control
             Data.Start();
 
             // start tempore for mouse
+            log.Info("Prepare interval to click mouse");
             _timer.Interval = TimeSpan.FromSeconds(0.2); //wait for the other click for 200ms
             _timer.Tick += Timer_Tick;
 
@@ -69,11 +72,12 @@ namespace WpfApp3
             _timer.Stop();
             if (button == 1)
             {
-                MessageBox.Show("Left Single Click!"); //handle the single click event here...
+                log.Info("Left Single Click");
             }
             else if (button == 2)
             {
-                MessageBox.Show("Right Single Click!"); //handle the single click event here...
+                log.Info("Right Single Click");
+
             }
         }
 
@@ -85,8 +89,7 @@ namespace WpfApp3
             if (e.ClickCount == 2)
             {
                 _timer.Stop();
-                MessageBox.Show("Left Double Click!"); //handle the double click event here...
-
+                log.Info("Left Double Click");
             }
             else
             {
@@ -102,7 +105,7 @@ namespace WpfApp3
             if (e.ClickCount == 2)
             {
                 _timer.Stop();
-                MessageBox.Show("Right Double Click!"); //handle the double click event here...
+                log.Info("Right Double Click");
                 MoveToNextComic();
             }
             else
@@ -118,6 +121,8 @@ namespace WpfApp3
         /// <param name="e"></param>
         private void ImageContainer_ScrollChanged(object sender, System.Windows.Controls.ScrollChangedEventArgs e)
         {
+            log.Info("move screen");
+
             // e.VerticalOffset: represents the new updated value of the Vertical offset of the ScrollViewer
             // (after you do the scroll, means the value of the vertical offset after the event is triggered)
             if (e.VerticalChange > 0)
@@ -141,7 +146,7 @@ namespace WpfApp3
         /// </summary>
         private void MoveToPreviusImage()
         {
-            MessageBox.Show("Move to previus Image!");
+            log.Info("Move to previus Image");
             if (Data.ImageIndex != 0)
             {
                 ShowImage(Data.Images[--Data.ImageIndex]);
@@ -154,7 +159,7 @@ namespace WpfApp3
 
         private void MoveToNextImage()
         {
-            MessageBox.Show("Move to next Image!");
+            log.Info("Move to next Image");
             if (Data.ImageIndex < Data.Images.Count - 1)
             {
                 ShowImage(Data.Images[++Data.ImageIndex]);
@@ -165,7 +170,6 @@ namespace WpfApp3
         /// </summary>
         private void MoveToPreviusComic()
         {
-            MessageBox.Show("Move to previus Comic!");
             if (Data.ComicIndex > 0)
             {
                 ShowImage(Data.Comics[--Data.ComicIndex]);
@@ -177,7 +181,7 @@ namespace WpfApp3
         /// </summary>
         private void MoveToNextComic()
         {
-            MessageBox.Show("Move to next Comic!");
+            log.Info("Move to next Comic");
             if (Data.ComicIndex < Data.Comics.Count - 1)
             {
                 ShowImage(Data.Comics[++Data.ComicIndex]);
@@ -190,6 +194,7 @@ namespace WpfApp3
         /// <param name="imagePath">String with the route</param>
         internal void ShowImage(string imagePath)
         {
+            log.Info("ShowImage: " + imagePath);
             BitmapImage image = new();
             image.BeginInit();
             image.CacheOption = BitmapCacheOption.OnLoad;
@@ -206,6 +211,7 @@ namespace WpfApp3
         /// <param name="e"></param>
         private void AddImage_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("AddImage");
             OpenFile.Image();
             ShowImage(Data.Images[Data.ImageIndex]);
         }
@@ -217,6 +223,7 @@ namespace WpfApp3
         /// <param name="e"></param>
         private void AddComic_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("AddComic");
             OpenFile.Comic();
             ShowImage(Data.Images[Data.ImageIndex]);
         }

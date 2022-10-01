@@ -18,7 +18,7 @@ namespace WpfApp3
         protected override void OnStartup(StartupEventArgs e)
         {
             log4net.Config.XmlConfigurator.Configure();
-            log.Info("        =============  Started Logging  =============        ");
+            log.Info("Start App");
             base.OnStartup(e);
         }
 
