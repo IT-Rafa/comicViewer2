@@ -73,11 +73,11 @@ namespace WpfApp3
             if (button == 1)
             {
                 log.Info("Left Single Click");
+
             }
             else if (button == 2)
             {
                 log.Info("Right Single Click");
-
             }
         }
 
@@ -121,7 +121,6 @@ namespace WpfApp3
         /// <param name="e"></param>
         private void ImageContainer_ScrollChanged(object sender, System.Windows.Controls.ScrollChangedEventArgs e)
         {
-            log.Info("move screen");
 
             // e.VerticalOffset: represents the new updated value of the Vertical offset of the ScrollViewer
             // (after you do the scroll, means the value of the vertical offset after the event is triggered)
@@ -129,6 +128,7 @@ namespace WpfApp3
             {
                 if (e.VerticalOffset + e.ViewportHeight == e.ExtentHeight)
                 {
+                    log.Info("move screen");
                     MoveToNextImage();
                 }
             }

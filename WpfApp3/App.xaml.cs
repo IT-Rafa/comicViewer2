@@ -14,14 +14,10 @@ namespace WpfApp3
     /// </summary>
     public partial class App : Application
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(App));
         protected override void OnStartup(StartupEventArgs e)
         {
             log4net.Config.XmlConfigurator.Configure();
-            log.Info("Start App");
             base.OnStartup(e);
         }
-
-
     }
 }
