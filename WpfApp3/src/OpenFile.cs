@@ -64,8 +64,7 @@ namespace WpfApp3.src
                 DelInfo();
 
                 UnCompress.Start(dialog);
-
-                Data.Images.AddRange(dialog.FileNames);
+                Data.Images.AddRange(Directory.GetFiles(extractPath));
             }
         }
 

@@ -6,6 +6,7 @@ using SharpCompress.Archives.Tar;
 using SharpCompress.Common;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Windows;
 
 namespace WpfApp3.src
@@ -18,8 +19,6 @@ namespace WpfApp3.src
         {
             DelExtractFiles();
             SelectZipOrRar(dialog);
-            Data.Images.AddRange(Directory.GetFiles(extractPath));
-
         }
 
         internal static void DelExtractFiles()
@@ -55,16 +54,13 @@ namespace WpfApp3.src
 
         private static void ExtractRar(string path, string extractPath)
         {
-            using (var archive = RarArchive.Open(path))
+            using var archive = RarArchive.Open(path);
+            foreach (var entry in archive.Entries.Where(entry => !entry.IsDirectory))
             {
-                foreach (var entry in archive.Entries.Where(entry => !entry.IsDirectory))
+                entry.WriteToDirectory(extractPath, new ExtractionOptions()
                 {
-                    entry.WriteToDirectory("\\filformat", new ExtractionOptions()
-                    {
-                        ExtractFullPath = true,
-                        Overwrite = true
-                    });
-                }
+
+                });
             }
         }
 
