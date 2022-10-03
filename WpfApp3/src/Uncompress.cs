@@ -1,4 +1,9 @@
-﻿using Microsoft.Win32;
+﻿using log4net;
+using Microsoft.Win32;
+using SharpCompress.Archives;
+using SharpCompress.Archives.Rar;
+using SharpCompress.Archives.Tar;
+using SharpCompress.Common;
 using System.IO;
 using System.IO.Compression;
 using System.Windows;
@@ -50,7 +55,17 @@ namespace WpfApp3.src
 
         private static void ExtractRar(string path, string extractPath)
         {
-            MessageBox.Show("Extract in " + extractPath);
+            using (var archive = RarArchive.Open(path))
+            {
+                foreach (var entry in archive.Entries.Where(entry => !entry.IsDirectory))
+                {
+                    entry.WriteToDirectory("\\filformat", new ExtractionOptions()
+                    {
+                        ExtractFullPath = true,
+                        Overwrite = true
+                    });
+                }
+            }
         }
 
         private static void ExtractZip(string path, string extractPath)
