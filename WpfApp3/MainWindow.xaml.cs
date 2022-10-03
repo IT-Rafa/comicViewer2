@@ -212,8 +212,10 @@ namespace WpfApp3
         private void AddImage_Click(object sender, RoutedEventArgs e)
         {
             log.Info("AddImage");
-            OpenFile.Image();
-            ShowImage(Data.Images[Data.ImageIndex]);
+            if (OpenFile.Image())
+            {
+                ShowImage(Data.Images[Data.ImageIndex]);
+            }
         }
 
         /// <summary>
@@ -224,8 +226,11 @@ namespace WpfApp3
         private void AddComic_Click(object sender, RoutedEventArgs e)
         {
             log.Info("AddComic");
-            OpenFile.Comic();
-            ShowImage(Data.Images[Data.ImageIndex]);
+            if (OpenFile.Comic())
+            {
+                ShowImage(Data.Images[Data.ImageIndex]);
+
+            }
         }
     }
 }

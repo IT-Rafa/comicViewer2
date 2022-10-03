@@ -1,8 +1,10 @@
-﻿using Microsoft.Win32;
+﻿using log4net;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,9 +14,12 @@ namespace WpfApp3.src
     // Part of class to open files ( images or comics)
     internal static class OpenFile
     {
-     // Open images files
-        internal static void Image()
+        private static readonly ILog log =
+            LogManager.GetLogger(type: MethodBase.GetCurrentMethod()?.DeclaringType);
+        // Open images files
+        internal static Boolean Image()
         {
+            log.Info("Ask images to user");
             OpenFileDialog dialog = new()
             {
                 Multiselect = true,
@@ -25,12 +30,7 @@ namespace WpfApp3.src
 
             if (dialog.ShowDialog() == true)
             {
-                string t = "dialog.FileNames: \n";
-                foreach (string s in dialog.FileNames)
-                {
-                    t += "  " + s + "\n";
-                }
-                MessageBox.Show(t);
+                log.Info("read comic: " + dialog.FileName);
 
                 DelInfo();
 
@@ -40,12 +40,15 @@ namespace WpfApp3.src
                 Data.ComicIndex = 0;
 
                 Data.Images.AddRange(dialog.FileNames);
-                
+                return true;
             }
+            return false;
         }
         // Open comic files
-        internal static void Comic()
+        internal static Boolean Comic()
         {
+            log.Info("Ask comic to user");
+
             string extractPath = System.IO.Path.GetTempPath() + "comicViewerExtract";
             Directory.CreateDirectory(extractPath);
 
@@ -58,19 +61,21 @@ namespace WpfApp3.src
 
             if (dialog.ShowDialog() == true)
             {
-                string t = "dialog.filename: " + dialog.FileName + "\n";
-                MessageBox.Show(t);
+                log.Info("read comic: " +  dialog.FileName);
 
                 DelInfo();
 
                 UnCompress.Start(dialog);
                 Data.Images.AddRange(Directory.GetFiles(extractPath));
+                return true;
             }
+            return false;
         }
 
         /// <summary>Del data.</summary>
         private static void DelInfo()
         {
+            log.Info("deleting images");
             Data.Images.Clear();
             Data.Comics.Clear();
             Data.ImageIndex = 0;

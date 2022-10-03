@@ -1,8 +1,10 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,6 +13,9 @@ namespace WpfApp3.src
 {
     internal static class Data
     {
+        private static readonly ILog log =
+            LogManager.GetLogger(type: MethodBase.GetCurrentMethod()?.DeclaringType);
+
         private static string lastPath = "";
 
         private static readonly List<string> images = new();
@@ -24,7 +29,7 @@ namespace WpfApp3.src
 
         // path of actual images or comics are
         public static string LastPath { get => lastPath; set => lastPath = value; }
-       
+
         // List of path of each image
         public static List<string> Images => images;
 
@@ -36,7 +41,7 @@ namespace WpfApp3.src
 
         // actual image of comics
         public static int ComicIndex { get => comicIndex; set => comicIndex = value; }
-        
+
         // read or create comicViewer.ini with user data
         public static void Start()
         {
@@ -48,6 +53,7 @@ namespace WpfApp3.src
         public static void ReadInit()
         {
             // string initFile = ".\\Resources\\default.jpg";
+            log.Info("Creating comicviewer.ini");
             if (!File.Exists(initFile))
             {
                 // Create a new file     
@@ -73,6 +79,7 @@ namespace WpfApp3.src
         {
             try
             {
+                log.Info("checking comicviewer.ini");
                 using StreamReader sr = File.OpenText(initFile);
                 string? s = "";
                 while ((s = sr.ReadLine()) != null)
@@ -84,7 +91,7 @@ namespace WpfApp3.src
                     }
                     else if (s.StartsWith("images=["))
                     {
-                        while((s = sr.ReadLine()) != null)
+                        while ((s = sr.ReadLine()) != null)
                         {
                             if (s == "]")
                                 break;
